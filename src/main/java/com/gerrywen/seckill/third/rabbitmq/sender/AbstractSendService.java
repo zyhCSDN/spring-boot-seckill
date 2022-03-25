@@ -194,7 +194,7 @@ public abstract class AbstractSendService<T> implements RabbitTemplate.ConfirmCa
 
     @PostConstruct
     public final void init() {
-        this.logger.info("sendservice 初始化...... ");
+        this.logger.info("sendService 初始化...... ");
         this.rabbitTemplate.setConfirmCallback(this);
         this.rabbitTemplate.setReturnCallback(this);
     }

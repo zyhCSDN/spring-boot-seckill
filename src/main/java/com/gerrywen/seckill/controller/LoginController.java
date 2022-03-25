@@ -43,6 +43,13 @@ public class LoginController {
         return "login";
     }
 
+    /**
+     * 前端密码为d3b1294a61a07da9b49b6e22b2cbd7f9
+     * @param response
+     * @param loginDTO
+     * @return
+     */
+
     @RequestMapping("/do_login")
     @ResponseBody
     public Result<String> doLogin(HttpServletResponse response, @Valid LoginDTO loginDTO) {

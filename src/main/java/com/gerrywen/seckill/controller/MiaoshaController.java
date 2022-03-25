@@ -38,6 +38,9 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ *
+ * https://blog.csdn.net/weixin_44015043/article/details/105923594?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1.pc_relevant_aa&spm=1001.2101.3001.4242.2&utm_relevant_index=4
+ *
  * program: spring-boot-seckill->MiaoshaController
  * description:
  * author: gerry
@@ -68,8 +71,9 @@ public class MiaoshaController implements InitializingBean {
     private HashMap<Long, Boolean> localOverMap = new HashMap<Long, Boolean>();
 
     /**
-     * 系统初始化
+     * 系统初始化 先把商品库存设置好
      */
+    @Override
     public void afterPropertiesSet() throws Exception {
         List<GoodsVO> goodsList = goodsService.listGoodsVo();
         if (goodsList == null) {
@@ -87,9 +91,9 @@ public class MiaoshaController implements InitializingBean {
     public Result<Boolean> reset(Model model) {
         List<GoodsVO> goodsList = goodsService.listGoodsVo();
         for (GoodsVO goods : goodsList) {
-            goods.setStockCount(10);
+            goods.setStockCount(500000);
             redisService.set(CtimsModelEnum.CTIMS_GOODS_CAP,
-                    GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goods.getId(), 10, 7200);
+                    GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goods.getId(), 500000, 7200);
             localOverMap.put(goods.getId(), false);
         }
         redisService.del(CtimsModelEnum.CTIMS_ORDER_CAP, OrderKey.ORDER_MIAOSHA_UID_GID_KEY_PREFIX);
@@ -130,21 +134,21 @@ public class MiaoshaController implements InitializingBean {
      * 5000 * 10
      * QPS: 2114
      */
-    @RequestMapping(value = "/{path}/do_miaosha", method = RequestMethod.POST)
+    @RequestMapping(value = "/path/do_miaosha", method = RequestMethod.POST)
     @ResponseBody
-    public Result<Integer> miaosha(Model model, MiaoshaUser user,
-                                   @RequestParam("goodsId") long goodsId,
-                                   @PathVariable("path") String path) {
+    public Result<Integer> miaosha1(Model model, MiaoshaUser user,
+                                   @RequestParam("goodsId") long goodsId
+                                  ) {
         model.addAttribute("user", user);
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
         }
         //验证path
-        boolean check = miaoshaService.checkPath(user, goodsId, path);
-        if (!check) {
-            return Result.error(CodeMsg.REQUEST_ILLEGAL);
-        }
-        //内存标记，减少redis访问
+//        boolean check = miaoshaService.checkPath(user, goodsId, path);
+//        if (!check) {
+//            return Result.error(CodeMsg.REQUEST_ILLEGAL);
+//        }
+        //内存标记， 预减库存  减少redis访问
         boolean over = localOverMap.get(goodsId);
         if (over) {
             return Result.error(CodeMsg.MIAO_SHA_OVER);
@@ -163,12 +167,14 @@ public class MiaoshaController implements InitializingBean {
         if (order != null) {
             return Result.error(CodeMsg.REPEATE_MIAOSHA);
         }
-        //入队
+        //入队 因为订单就需要用户的id和商品的id，这里先自行定义一个对象，进行一个封装的处理。
+        // 后续将Object转换为String类型
         MiaoshaMessage mm = new MiaoshaMessage();
         mm.setUser(user);
         mm.setGoodsId(goodsId);
         miaoshaMessageSendService.send(mm);
-        return Result.success(0);//排队中
+        return Result.success(0);
+        //注意这里，code为0表示排队中，因为确实这里是要进入队列的。
 
     }
 
@@ -179,7 +185,7 @@ public class MiaoshaController implements InitializingBean {
      * 前端判断如果你是200就刷新列表，如果你是500，就弹出错误信息
      *
      *
-     * orderId：成功
+     * orderId：订单号 成功
      * -1：秒杀失败
      * 0： 排队中
      */

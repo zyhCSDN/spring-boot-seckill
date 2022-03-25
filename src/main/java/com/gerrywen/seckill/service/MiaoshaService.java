@@ -60,8 +60,10 @@ public class MiaoshaService {
             boolean isOver = getGoodsOver(goodsId);
             if (isOver) {
                 return -1;
+                // 表示已经卖完。
             } else {
                 return 0;
+//                没有卖完 且没有成功 继续轮询
             }
         }
     }
