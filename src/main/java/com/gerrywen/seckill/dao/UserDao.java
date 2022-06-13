@@ -16,6 +16,7 @@ import org.apache.ibatis.annotations.Select;
 public interface UserDao {
     /**
      * 通过主键ID查询用户信息
+     *
      * @param id
      * @return
      */
@@ -24,6 +25,7 @@ public interface UserDao {
 
     /**
      * 插入用ID和用户名称
+     *
      * @param user
      * @return
      */

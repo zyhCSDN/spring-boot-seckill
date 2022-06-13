@@ -15,15 +15,17 @@ import org.springframework.stereotype.Service;
 public class RabbitSendServiceTest extends AbstractSendService {
 
     public void send() {
+        //第一步
         this.send(QueueEnum.DIRECT_MODE_QUEUE_ONE.getExchange(),
                 QueueEnum.DIRECT_MODE_QUEUE_ONE.getRouteKey(), QueueEnum.DIRECT_MODE_QUEUE_ONE.getName(), "send test message");
     }
 
     @Override
     public void handleConfirmCallback(String messageId, boolean ack, String cause) {
-        if(!ack){
+        if (!ack) {
             logger.info("打印异常处理....");
         }
+        logger.info("messageId:" + messageId + "---ack:" + ack + "----cause:" + cause);
     }
 
     @Override

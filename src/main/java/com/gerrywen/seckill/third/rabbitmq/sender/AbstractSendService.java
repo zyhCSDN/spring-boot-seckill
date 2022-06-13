@@ -71,7 +71,7 @@ public abstract class AbstractSendService<T> implements RabbitTemplate.ConfirmCa
         amQueueDeclare.declareQueue(new MqQueue().name(queue));
         // 路由键绑定队列交换机
         amBindDeclare.queueBind(queue, exchange, routingKey);
-
+        //第二步
         this.send(exchange, routingKey, queue, content, null, UUIDUtils.generateUuid());
     }
 
@@ -157,6 +157,7 @@ public abstract class AbstractSendService<T> implements RabbitTemplate.ConfirmCa
         mqMessage.setExchangeName(exchange);
         mqMessage.setQueueName(queue);
         mqMessage.setRoutingKey(routingKey);
+        //第三步
         if (StringUtils.isEmpty(messagePostProcessor)) {
             this.rabbitTemplate.convertAndSend(exchange, routingKey, mqMessage, correlationData);
         } else {
@@ -208,6 +209,7 @@ public abstract class AbstractSendService<T> implements RabbitTemplate.ConfirmCa
      */
     @Override
     public final void confirm(CorrelationData correlationData, boolean ack, String cause) {
+        cause="这是第一步,自己调自己的,实现类有回调";
         this.logger.info("confirm-----correlationData:" + correlationData.toString() + "---ack:" + ack + "----cause:" + cause);
         // TODO 记录日志
         this.handleConfirmCallback(correlationData.getId(), ack, cause);

@@ -31,10 +31,11 @@ public class RabbitReceiverServiceTest extends AbstractReceiverHandler<String> {
     @Override
     public AbstractMessageHandler<String> messageHandler() {
         return new AbstractMessageHandler<String>() {
-
+        //第四步
             @Override
             public boolean handleMessage(String message, Channel channel) {
                 logger.info("Test 接收消息：{}", message);
+                System.out.println(1/0);
                 return true;
             }
         };

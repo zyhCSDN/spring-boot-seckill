@@ -32,7 +32,7 @@ public class RedisTest {
     @Test
     public void setUser() {
         String key = RedisKey.ORDER_KEY_PREFIX_ID;
-        redisService.set(CtimsModelEnum.CTIMS_ORDER_CAP,key, 1);
+        redisService.set(CtimsModelEnum.CTIMS_ORDER_CAP, key, 1);
     }
 
 }

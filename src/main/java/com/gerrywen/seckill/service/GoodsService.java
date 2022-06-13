@@ -21,7 +21,7 @@ public class GoodsService {
     GoodsDao goodsDao;
 
 
-    public List<GoodsVO> listGoodsVo(){
+    public List<GoodsVO> listGoodsVo() {
         return goodsDao.listGoodsVo();
     }
 
@@ -37,7 +37,7 @@ public class GoodsService {
     }
 
     public void resetStock(List<GoodsVO> goodsList) {
-        for(GoodsVO goods : goodsList ) {
+        for (GoodsVO goods : goodsList) {
             MiaoshaGoods g = new MiaoshaGoods();
             g.setGoodsId(goods.getId());
             g.setStockCount(goods.getStockCount());

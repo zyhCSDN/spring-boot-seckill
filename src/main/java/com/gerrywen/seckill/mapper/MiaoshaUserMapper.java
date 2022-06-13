@@ -2,7 +2,9 @@ package com.gerrywen.seckill.mapper;
 
 import com.gerrywen.seckill.model.MiaoshaUser;
 import com.gerrywen.seckill.model.MiaoshaUserExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface MiaoshaUserMapper {

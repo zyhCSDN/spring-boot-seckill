@@ -15,7 +15,7 @@ public class OrderInfo {
     private Long id;
     private Long userId;
     private Long goodsId;
-    private Long  deliveryAddrId;
+    private Long deliveryAddrId;
     private String goodsName;
     private Integer goodsCount;
     private Double goodsPrice;

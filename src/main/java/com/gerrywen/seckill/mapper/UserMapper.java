@@ -2,7 +2,9 @@ package com.gerrywen.seckill.mapper;
 
 import com.gerrywen.seckill.model.User;
 import com.gerrywen.seckill.model.UserExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {

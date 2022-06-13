@@ -38,9 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
  * https://blog.csdn.net/weixin_44015043/article/details/105923594?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1.pc_relevant_aa&spm=1001.2101.3001.4242.2&utm_relevant_index=4
- *
+ * <p>
  * program: spring-boot-seckill->MiaoshaController
  * description:
  * author: gerry
@@ -129,6 +128,7 @@ public class MiaoshaController implements InitializingBean {
 
     @Autowired
     OrderDao orderDao;
+
     /**
      * QPS:1306
      * 5000 * 10
@@ -137,8 +137,8 @@ public class MiaoshaController implements InitializingBean {
     @RequestMapping(value = "/path/do_miaosha", method = RequestMethod.POST)
     @ResponseBody
     public Result<Integer> miaosha1(Model model, MiaoshaUser user,
-                                   @RequestParam("goodsId") long goodsId
-                                  ) {
+                                    @RequestParam("goodsId") long goodsId
+    ) {
         model.addAttribute("user", user);
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
@@ -153,15 +153,16 @@ public class MiaoshaController implements InitializingBean {
         if (over) {
             return Result.error(CodeMsg.MIAO_SHA_OVER);
         }
-        //预减库存
+        //判断库存
         String s = redisService.get(CtimsModelEnum.CTIMS_GOODS_CAP, GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goodsId);
         long stock = Long.parseLong(s);
         if (stock < 0) {
             localOverMap.put(goodsId, true);
             return Result.error(CodeMsg.MIAO_SHA_OVER);
         }
+        //预减库存
         redisService.set(CtimsModelEnum.CTIMS_GOODS_CAP,
-                GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goodsId, stock -1, 7200);
+                GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goodsId, stock - 1, 7200);
         //判断是否已经秒杀到了
         MiaoshaOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(user.getId(), goodsId);
         if (order != null) {
@@ -181,10 +182,10 @@ public class MiaoshaController implements InitializingBean {
 
     /**
      * 你返回的时候，成功就200。不成功就500并且带上错误信息（库存不足，有的下单失败）。
-     *
+     * <p>
      * 前端判断如果你是200就刷新列表，如果你是500，就弹出错误信息
-     *
-     *
+     * <p>
+     * <p>
      * orderId：订单号 成功
      * -1：秒杀失败
      * 0： 排队中

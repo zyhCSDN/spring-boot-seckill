@@ -32,7 +32,7 @@ public class OrderService {
         MiaoshaOrder miaoshaOrder = redisService.get(CtimsModelEnum.CTIMS_ORDER_CAP,
                 OrderKey.ORDER_MIAOSHA_UID_GID_KEY_PREFIX + userId + "_" + goodsId, MiaoshaOrder.class);
         if (miaoshaOrder == null) {
-           //数据库也没有返回null没有秒杀
+            //数据库也没有返回null没有秒杀
             miaoshaOrder = orderDao.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
             redisService.set(CtimsModelEnum.CTIMS_ORDER_CAP,
                     OrderKey.ORDER_MIAOSHA_UID_GID_KEY_PREFIX + userId + "_" + goodsId, miaoshaOrder);

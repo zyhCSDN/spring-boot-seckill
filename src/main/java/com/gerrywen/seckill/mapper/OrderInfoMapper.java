@@ -2,7 +2,9 @@ package com.gerrywen.seckill.mapper;
 
 import com.gerrywen.seckill.model.OrderInfo;
 import com.gerrywen.seckill.model.OrderInfoExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderInfoMapper {

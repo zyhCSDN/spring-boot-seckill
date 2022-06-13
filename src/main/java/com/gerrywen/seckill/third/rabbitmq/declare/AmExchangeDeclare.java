@@ -20,7 +20,7 @@ import org.springframework.util.StringUtils;
  * @date 2020/3/5 9:01
  */
 @Component
-public class AmExchangeDeclare extends AbstractDeclare{
+public class AmExchangeDeclare extends AbstractDeclare {
     @Autowired
     RabbitAdmin rabbitAdmin;
 

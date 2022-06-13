@@ -19,7 +19,7 @@
         <!-- 为生成的Java模型创建一个toString方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
         <!--生成mapper.xml时覆盖原文件-->
-        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
         <!-- optional，旨在创建class时，对注释进行控制 -->
         <commentGenerator type="com.gerrywen.seckill.MyCommentGenerator">
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -34,7 +34,7 @@
                         userId="${jdbc.userId}"
                         password="${jdbc.password}">
             <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
-            <property name="nullCatalogMeansCurrent" value="true" />
+            <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
         <!-- Model模型生成器,用来生成含有主键key的类，记录类 以及查询Example类

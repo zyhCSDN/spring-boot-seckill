@@ -1,7 +1,6 @@
 package com.gerrywen.seckill.third.rabbitmq.properties;
 
 
-
 /**
  * description:
  * <p>

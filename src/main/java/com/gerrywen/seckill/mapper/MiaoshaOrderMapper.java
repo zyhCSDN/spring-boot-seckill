@@ -2,7 +2,9 @@ package com.gerrywen.seckill.mapper;
 
 import com.gerrywen.seckill.model.MiaoshaOrder;
 import com.gerrywen.seckill.model.MiaoshaOrderExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface MiaoshaOrderMapper {

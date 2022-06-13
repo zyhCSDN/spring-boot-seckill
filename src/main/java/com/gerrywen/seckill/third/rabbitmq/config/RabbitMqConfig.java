@@ -20,8 +20,8 @@ import java.util.Map;
  * <p>
  * RabbitMQ配置，主要是配置队列，如果提前存在该队列，可以省略本配置类
  * </p>
- *
- *
+ * <p>
+ * <p>
  * description: RabbitMQ配置，主要是配置队列，如果提前存在该队列，可以省略本配置类
  *
  * @author wenguoli
@@ -33,10 +33,11 @@ public class RabbitMqConfig {
 
     /**
      * 注册rabbitMQ的Connection
-     *
+     * <p>
      * ConfigurableBeanFactory.SCOPE_PROTOTYPE:
      * 因为要设置回调类，所以应是prototype类型，如果是singleton类型，则回调类为最后一次设置
      * 主要是为了设置回调类
+     *
      * @param connectionFactory 工厂类
      * @return
      */

@@ -19,6 +19,7 @@ import java.util.List;
 public interface GoodsDao {
     /**
      * 查询秒杀商品
+     *
      * @return
      */
     @Select("select g.*,mg.stock_count as stockCount, mg.start_date as startDate , mg.end_date as endDate,mg.miaosha_price as miaoshaPrice  from miaosha_goods mg left join goods g on mg.goods_id = g.id")
@@ -26,14 +27,16 @@ public interface GoodsDao {
 
     /**
      * 根据商品ID查询秒杀商品信息
+     *
      * @param goodsId
      * @return
      */
     @Select("select g.*,mg.stock_count as stockCount, mg.start_date as startDate , mg.end_date as endDate,mg.miaosha_price as miaoshaPrice from miaosha_goods mg left join goods g on mg.goods_id = g.id where g.id = #{goodsId}")
-    public GoodsVO getGoodsVoByGoodsId(@Param("goodsId")long goodsId);
+    public GoodsVO getGoodsVoByGoodsId(@Param("goodsId") long goodsId);
 
     /**
      * 根据ID扣库存
+     *
      * @param g
      * @return
      */
@@ -42,6 +45,7 @@ public interface GoodsDao {
 
     /**
      * 根据商品ID重置库存
+     *
      * @param g
      * @return
      */

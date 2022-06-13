@@ -30,7 +30,6 @@ public class MqException extends RuntimeException {
 
     /**
      * 自定义返回状态信息
-     *
      **/
     public MqException(ErrorEnum errorEnum) {
         super(errorEnum.getMessage());
@@ -42,10 +41,10 @@ public class MqException extends RuntimeException {
      * 自定义返回状态信息
      *
      * @param errorEnum
-     * @param argArray     值
-     *                     eg:
-     *                     returnStatus中的message:店铺：{0},名字：{1}
-     *                     new BusinessException(ReturnStatus.SS,"天猫","张三");
+     * @param argArray  值
+     *                  eg:
+     *                  returnStatus中的message:店铺：{0},名字：{1}
+     *                  new BusinessException(ReturnStatus.SS,"天猫","张三");
      */
     public MqException(ErrorEnum errorEnum, Object... argArray) {
         super(replace(errorEnum.getMessage(), argArray));

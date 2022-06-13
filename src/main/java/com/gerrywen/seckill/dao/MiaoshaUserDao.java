@@ -16,6 +16,7 @@ import org.apache.ibatis.annotations.Update;
 public interface MiaoshaUserDao {
     /**
      * 根据主键ID查询秒杀用户
+     *
      * @param id
      * @return
      */
@@ -24,6 +25,7 @@ public interface MiaoshaUserDao {
 
     /**
      * 根据主键ID修改密码
+     *
      * @param toBeUpdate
      */
     @Update("update miaosha_user set password = #{password} where id = #{id}")

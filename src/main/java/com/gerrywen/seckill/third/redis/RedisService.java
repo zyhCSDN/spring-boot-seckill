@@ -227,6 +227,7 @@ public class RedisService {
 
     /**
      * 获取批量缓存
+     *
      * @param keys 多个键
      * @return list对象
      */
