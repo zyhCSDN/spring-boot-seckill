@@ -1,6 +1,6 @@
 package com.gerrywen.seckill.domain;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * program: spring-boot-seckill->Goods

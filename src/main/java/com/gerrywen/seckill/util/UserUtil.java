@@ -7,6 +7,9 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gerrywen.seckill.domain.MiaoshaUser;
+import com.gerrywen.seckill.domain.User;
 
 /**
  * program: spring-boot-seckill->UserUtil
@@ -38,25 +42,25 @@ public class UserUtil {
         }
         System.out.println("create user");
 //		//插入数据库
-//		Connection conn = DBUtil.getConn();
-//		String sql = "insert into miaosha_user(login_count, nickname, register_date, salt, password, id)values(?,?,?,?,?,?)";
-//		PreparedStatement pstmt = conn.prepareStatement(sql);
-//		for(int i=0;i<users.size();i++) {
-//			MiaoshaUser user = users.get(i);
-//			pstmt.setInt(1, user.getLoginCount());
-//			pstmt.setString(2, user.getNickname());
-//			pstmt.setTimestamp(3, new Timestamp(user.getRegisterDate().getTime()));
-//			pstmt.setString(4, user.getSalt());
-//			pstmt.setString(5, user.getPassword());
-//			pstmt.setLong(6, user.getId());
-//			pstmt.addBatch();
-//		}
-//		pstmt.executeBatch();
-//		pstmt.close();
-//		conn.close();
-//		System.out.println("insert to db");
-        //登录，生成token
-        String urlString = "http://localhost:3838/login/do_login";
+		Connection conn = DBUtil.getConn();
+		String sql = "insert into miaosha_user(login_count, nickname, redister_date, salt, password, id)values(?,?,?,?,?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		for(int i=0;i<users.size();i++) {
+			MiaoshaUser user = users.get(i);
+			pstmt.setInt(1, user.getLoginCount());
+			pstmt.setString(2, user.getNickname());
+			pstmt.setTimestamp(3, new Timestamp(user.getRegisterDate().getTime()));
+			pstmt.setString(4, user.getSalt());
+			pstmt.setString(5, user.getPassword());
+			pstmt.setLong(6, user.getId());
+			pstmt.addBatch();
+		}
+		pstmt.executeBatch();
+		pstmt.close();
+		conn.close();
+		System.out.println("insert to db");
+//        //登录，生成token
+        String urlString = "http://localhost:8888/login/do_login";
         File file = new File("./tokens.txt");
         if (file.exists()) {
             file.delete();
@@ -100,6 +104,6 @@ public class UserUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        createUser(5000);
+        createUser(6000);
     }
 }

@@ -22,7 +22,7 @@ public interface GoodsDao {
      *
      * @return
      */
-    @Select("select g.*,mg.stock_count as stockCount, mg.start_date as startDate , mg.end_date as endDate,mg.miaosha_price as miaoshaPrice  from miaosha_goods mg left join goods g on mg.goods_id = g.id")
+    @Select("select g.id AS id,g.goods_name AS goodsName,g.goods_img AS goodsImg,g.goods_price AS goodsPrice,mg.goods_id AS goodsId,mg.stock_count as stockCount, mg.start_date as startDate , mg.end_date as endDate,mg.miaosha_price as miaoshaPrice  from miaosha_goods mg left join goods g on mg.goods_id = g.id")
     public List<GoodsVO> listGoodsVo();
 
     /**
@@ -31,7 +31,7 @@ public interface GoodsDao {
      * @param goodsId
      * @return
      */
-    @Select("select g.*,mg.stock_count as stockCount, mg.start_date as startDate , mg.end_date as endDate,mg.miaosha_price as miaoshaPrice from miaosha_goods mg left join goods g on mg.goods_id = g.id where g.id = #{goodsId}")
+    @Select("select g.id AS id,g.goods_name AS goodsName,g.goods_img AS goodsImg,g.goods_price AS goodsPrice,mg.goods_id AS goodsId,mg.stock_count as stockCount, mg.start_date as startDate , mg.end_date as endDate,mg.miaosha_price as miaoshaPrice from miaosha_goods mg left join goods g on mg.goods_id = g.id where g.id = #{goodsId}")
     public GoodsVO getGoodsVoByGoodsId(@Param("goodsId") long goodsId);
 
     /**

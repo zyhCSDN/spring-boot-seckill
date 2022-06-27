@@ -1,5 +1,7 @@
 package com.gerrywen.seckill.util;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +19,7 @@ public class DBUtil {
 
     static {
         try {
-            InputStream in = DBUtil.class.getClassLoader().getResourceAsStream("application.yml");
+            InputStream in = DBUtil.class.getClassLoader().getResourceAsStream("application-dev.yml");
             props = new Properties();
             props.load(in);
             in.close();
@@ -27,10 +29,10 @@ public class DBUtil {
     }
 
     public static Connection getConn() throws Exception {
-        String url = props.getProperty("spring.datasource.url");
-        String username = props.getProperty("spring.datasource.username");
-        String password = props.getProperty("spring.datasource.password");
-        String driver = props.getProperty("spring.datasource.driver-class-name");
+        String url = props.getProperty("url");
+        String username = "root";
+        String password ="root";
+        String driver = props.getProperty("driver-class-name");
         Class.forName(driver);
         return DriverManager.getConnection(url, username, password);
     }

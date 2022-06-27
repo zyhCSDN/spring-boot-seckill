@@ -102,7 +102,7 @@ public class MiaoshaController implements InitializingBean {
     }
 
 
-    @RequestMapping(value = "/do_miaosha", method = RequestMethod.POST)
+    @RequestMapping(value = "/{path}/do_miaosha", method = RequestMethod.POST)
     @ResponseBody
     public Result<OrderInfo> miaosha(Model model, MiaoshaUser user,
                                      @RequestParam("goodsId") long goodsId) {
@@ -201,6 +201,15 @@ public class MiaoshaController implements InitializingBean {
         long result = miaoshaService.getMiaoshaResult(user.getId(), goodsId);
         return Result.success(result);
     }
+
+    /**
+     * 点击立即秒杀接口
+     * @param request
+     * @param user
+     * @param goodsId
+     * @param verifyCode
+     * @return
+     */
 
     @AccessLimit(seconds = 5, maxCount = 5, needLogin = true)
     @RequestMapping(value = "/path", method = RequestMethod.GET)
