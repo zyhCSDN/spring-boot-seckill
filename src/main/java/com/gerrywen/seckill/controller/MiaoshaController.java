@@ -67,7 +67,7 @@ public class MiaoshaController implements InitializingBean {
     @Autowired
     MiaoshaMessageSendService miaoshaMessageSendService;
 
-    private HashMap<Long, Boolean> localOverMap = new HashMap<Long, Boolean>();
+//    private HashMap<Long, Boolean> localOverMap = new HashMap<Long, Boolean>();
 
     /**
      * 系统初始化 先把商品库存设置好
@@ -81,7 +81,7 @@ public class MiaoshaController implements InitializingBean {
         for (GoodsVO goods : goodsList) {
             redisService.set(CtimsModelEnum.CTIMS_GOODS_CAP,
                     GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goods.getId(), goods.getStockCount(), 7200);
-            localOverMap.put(goods.getId(), false);
+//            localOverMap.put(goods.getId(), false);
         }
     }
 
@@ -93,7 +93,7 @@ public class MiaoshaController implements InitializingBean {
             goods.setStockCount(500000);
             redisService.set(CtimsModelEnum.CTIMS_GOODS_CAP,
                     GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goods.getId(), 500000, 7200);
-            localOverMap.put(goods.getId(), false);
+//            localOverMap.put(goods.getId(), false);
         }
         redisService.del(CtimsModelEnum.CTIMS_ORDER_CAP, OrderKey.ORDER_MIAOSHA_UID_GID_KEY_PREFIX);
         redisService.del(CtimsModelEnum.CTIMS_GOODS_CAP, MiaoshaKey.MIAOSHA_GOODS_OVER_KEY_PREFIX);
@@ -149,15 +149,15 @@ public class MiaoshaController implements InitializingBean {
 //            return Result.error(CodeMsg.REQUEST_ILLEGAL);
 //        }
         //内存标记， 预减库存  减少redis访问
-        boolean over = localOverMap.get(goodsId);
-        if (over) {
-            return Result.error(CodeMsg.MIAO_SHA_OVER);
-        }
+//        boolean over = localOverMap.get(goodsId);
+//        if (over) {
+//            return Result.error(CodeMsg.MIAO_SHA_OVER);
+//        }
         //判断库存
         String s = redisService.get(CtimsModelEnum.CTIMS_GOODS_CAP, GoodsKey.GOODS_STOCK_KEY_PREFIX + "" + goodsId);
         long stock = Long.parseLong(s);
         if (stock < 0) {
-            localOverMap.put(goodsId, true);
+//            localOverMap.put(goodsId, true);
             return Result.error(CodeMsg.MIAO_SHA_OVER);
         }
         //预减库存

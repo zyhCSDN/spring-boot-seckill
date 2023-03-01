@@ -1,5 +1,6 @@
 package com.gerrywen.seckill.third.rabbitmq.enums;
 
+import com.gerrywen.seckill.third.rabbitmq.constants.RabbitConsts;
 import lombok.Getter;
 
 /**
@@ -16,9 +17,13 @@ public enum QueueEnum {
      */
     DIRECT_MODE_QUEUE_ONE("queue.direct.1", "queue.direct.1", "queue.direct.1"),
     /**
-     * 队列2
+     * 交换机配置
      */
     QUEUE_TWO("queue.2", "queue.2", "queue.2"),
+    /**
+     * 死信配置
+     */
+    QUEUE_THREE("queue.3", "queue.3", "queue.3"),
 
     /**
      * 队列2

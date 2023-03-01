@@ -81,7 +81,7 @@ spring:
         prefetch: 1 # 消费者每次从队列获取的消息数量
         auto-startup: true #消费者自动启动
         default-requeue-rejected: true #消费失败，自动重新入队
-        acknowledge-mode: manual # todo:手动提交消息 手动ack
+        acknowledge-mode: manual # todo:手动确定消息消费 手动ack
     template: #启用发送重试
       mandatory: true
       retry:

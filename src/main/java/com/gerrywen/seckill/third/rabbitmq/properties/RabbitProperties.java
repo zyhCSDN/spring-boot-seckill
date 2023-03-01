@@ -13,7 +13,7 @@ public interface RabbitProperties {
 
     Boolean mandatory = false;
 
-    Boolean isAck = false;
+    Boolean isAck = true;
 
     Integer retryTimes = 5;
 

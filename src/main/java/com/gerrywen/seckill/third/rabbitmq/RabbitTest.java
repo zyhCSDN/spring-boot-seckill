@@ -1,7 +1,13 @@
 package com.gerrywen.seckill.third.rabbitmq;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gerrywen.seckill.MainApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -36,6 +42,10 @@ public class RabbitTest {
 
     @Test
     public void sendTest() {
-        rabbitSendServiceTest.send();
+
+        for (int i = 0; i <10000 ; i++) {
+            rabbitSendServiceTest.send(i);
+            System.out.println("发送消息"+i);
+        }
     }
 }

@@ -9,12 +9,15 @@ import com.gerrywen.seckill.third.rabbitmq.enums.ModeExchangeEnum;
 import com.gerrywen.seckill.third.rabbitmq.exception.MqException;
 import com.gerrywen.seckill.third.rabbitmq.message.MqMessage;
 import com.gerrywen.seckill.third.rabbitmq.properties.RabbitProperties;
+import com.gerrywen.seckill.third.rabbitmq.util.IdWorker;
 import com.gerrywen.seckill.third.rabbitmq.util.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,7 +204,7 @@ public abstract class AbstractSendService<T> implements RabbitTemplate.ConfirmCa
     }
 
     /**
-     * 确认后回调方法
+     * 消息确认后回调方法
      *
      * @param correlationData
      * @param ack
@@ -209,7 +212,6 @@ public abstract class AbstractSendService<T> implements RabbitTemplate.ConfirmCa
      */
     @Override
     public final void confirm(CorrelationData correlationData, boolean ack, String cause) {
-        cause="这是第一步,自己调自己的,实现类有回调";
         this.logger.info("confirm-----correlationData:" + correlationData.toString() + "---ack:" + ack + "----cause:" + cause);
         // TODO 记录日志
         this.handleConfirmCallback(correlationData.getId(), ack, cause);

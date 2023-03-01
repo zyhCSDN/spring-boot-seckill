@@ -1,5 +1,6 @@
 package com.gerrywen.seckill.service.mq;
 
+import com.alibaba.fastjson.JSONArray;
 import com.gerrywen.seckill.third.rabbitmq.enums.QueueEnum;
 import com.gerrywen.seckill.third.rabbitmq.sender.AbstractSendService;
 import org.springframework.amqp.core.Message;
@@ -21,13 +22,18 @@ public class MiaoshaMessageSendService extends AbstractSendService {
 
     @Override
     public void handleConfirmCallback(String messageId, boolean ack, String cause) {
-        if (!ack) {
-            logger.info("打印异常处理....");
+        if (ack) {
+            logger.info("进入 handleConfirmCallback方法 消息确认消费。。。");
+            logger.info("messageId:{},ack:{},cause:{}",messageId,true,cause);
+        }else {
+            logger.error("打印异常处理....");
         }
     }
 
     @Override
     public void handleReturnCallback(Message message, int replyCode, String replyText, String routingKey) {
+
+        logger.info("message:{},replyCode:{},replyText:{},routingKey:{}", JSONArray.toJSONString(message),replyCode,replyText,routingKey);
 
     }
 }

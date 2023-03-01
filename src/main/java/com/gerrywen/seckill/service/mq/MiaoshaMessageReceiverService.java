@@ -49,6 +49,8 @@ public class MiaoshaMessageReceiverService extends AbstractReceiverHandler<Miaos
                 .registerQueue();
     }
 
+    //第四步
+
     @Override
     public AbstractMessageHandler<MiaoshaMessage> messageHandler() {
         return new AbstractMessageHandler<MiaoshaMessage>() {

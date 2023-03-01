@@ -7,6 +7,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -17,8 +18,7 @@ import java.util.List;
  * author: gerry
  * created: 2020-03-05 20:34
  **/
-@ControllerAdvice // 使用 @ControllerAdvice 实现全局异常处理
-@ResponseBody // @ResponseBody的作用其实是将java对象转为json格式的数据。
+@RestControllerAdvice // 使用 @RestControllerAdvice 实现全局异常处理
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)

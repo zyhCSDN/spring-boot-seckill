@@ -65,5 +65,8 @@ public interface RabbitConsts {
     /**
      * 延迟队列交换器
      */
-    String DELAY_MODE_QUEUE = "delay.mode";
+    String DELAY_EXCHANGE = "delay.exChange";
+
+
+    String DELAY_ROUTEKEY = "delay.routeKey";
 }
